@@ -1,4 +1,5 @@
 // Package gonetmap is a wrapper around the netmap library.
+//go:build freebsd
 // +build freebsd
 
 package gonetmap
@@ -121,7 +122,7 @@ func (p *Netmap) NextPkt() (pkt *Packet, err error) {
 }
 
 func (p *Netmap) Getstats() (stat *Stat, err error) {
-	var cstats _Ctype_struct_nm_stat
+	var cstats C.struct_nm_stat
 	C.nm_stats(p.cptr, &cstats)
 
 	stats := new(Stat)
